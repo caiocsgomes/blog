@@ -1,37 +1,99 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js antialiased leading-tight" lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Caio Gomes</title>
-  <meta name="description" content="Caio Gomes Personal Webpage">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Caio Gomes</title>
+    <meta name="description" content="Caio Gomes Personal Webpage">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="img/web-programming.svg">
-
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/webstorm-boilerplate.css">
-
-  <meta name="theme-color" content="#fafafa">
+    <link rel="icon" href="img/web-programming.svg">
+    <link rel="stylesheet" type="text/css" href="css/build/tailwind.css">
+    <meta name="theme-color" content="#fafafa">
 </head>
 
-<body>
+<body class="min-h-screen text-yellow-100 bg-gray-900 font-ubuntu">
 
-  <!--TODO: Create repository on github -->
-  <!--TODO: Define color palette -->
-  <!--TODO: Make main page layout -->
-  <!--TODO: Make post layout -->
-  <!--TODO: Implement dark mode -->
-  <!--TODO: Create one post  -->
-  <!--TODO: Deploy to S3 -->
-  <!--TODO: Implement CI/CD using github and S3 -->
+<!--TODO: Make main page layout -->
+<!--TODO: Make post layout -->
+<!--TODO: Implement dark mode -->
+<!--TODO: Create one post  -->
+<!--TODO: Deploy to S3 -->
+<!--TODO: Implement CI/CD using github and S3 -->
 
-  <p>Boilerplate.</p>
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+<div class="container mx-auto gap-1 mt-10 md:mt-20 grid grid-rows-1 md:grid-cols-main">
+    <aside>
+        <div class="flex md:block md:py-4 h-full">
+            <div class="pr-3 hover:bg-gray-800 rounded">
+                <a href="https://twitter.com/caiocsgomes" target="_blank" class="block font-bold visited:none py-2">
+                    <img src="img/013-twitter-1.svg" class="w-5 align-middle m-auto inline-block mx-3"  align="left" alt="Twitter logo">
+                    Twitter
+                </a>
+            </div>
+            <div class="pr-3 hover:bg-gray-800 rounded">
+                <a href="https://github.com/caiocsgomes" target="_blank" class="block font-bold visited:none  py-2">
+                    <img src="img/039-github.svg" class="w-5 align-middle m-auto inline-block mx-3"  align="left" alt="Github logo">
+                    Github
+                </a>
+            </div>
+            <div class="pr-3 hover:bg-gray-800 rounded ">
+                <a href="https://www.linkedin.com/in/caiocsgomes" target="_blank" class="inline font-bold visited:none py-2">
+                    <img src="img/031-linkedin.svg" class="w-5 align-middle m-auto inline-block mx-3"  align="left" alt="Linkedin logo">
+                    Linkedin
+                </a>
+            </div>
+        </div>
+    </aside>
 
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <main>
+        <div class="max-w-4xl px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
+             onclick="window.location.pathname='posts/first-post.html'">
+            <div class="flex justify-between items-center">
+                <span class="font-light text-gray-100">oct 4, 2020</span>
+                <a class="px-2 py-1 bg-gray-600 text-gray-100 font-bold" href="#">Design</a>
+            </div>
+            <div class="mt-2">
+                <a class="text-2xl text-gray-100 font-bold">This is the first post</a>
+                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                    dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
+                    delectus nihil quis facere in modi ratione libero!</p>
+            </div>
+        </div>
+        <div class="max-w-4xl px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
+             onclick="window.location.pathname='posts/second-post.html'">
+            <div class="flex justify-between items-center">
+                <span class="font-light text-gray-100">oct 4, 2020</span>
+                <a class="px-2 py-1 bg-yellow-600 text-gray-100 font-bold" href="#">Python</a>
+            </div>
+            <div class="mt-2">
+                <a class="text-2xl text-gray-100 font-bold">This is the second post</a>
+                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                    dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
+                    delectus nihil quis facere in modi ratione libero!</p>
+            </div>
+        </div>
+        <div class="max-w-4xl px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
+             onclick="window.location.pathname='posts/third-post.html'">
+            <div class="flex justify-between items-center">
+                <span class="font-light text-gray-100">oct 4, 2020</span>
+                <a class="px-2 py-1 bg-purple-900 text-gray-100 font-bold" href="#">Linux</a>
+            </div>
+            <div class="mt-2">
+                <a class="text-2xl text-gray-100 font-bold">This is the third post</a>
+                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                    dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
+                    delectus nihil quis facere in modi ratione libero!</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<!--  <script src="js/vendor/modernizr-3.11.2.min.js"></script>-->
+<!--  <script src="js/plugins.js"></script>-->
+<!--  <script src="js/main.js"></script>-->
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 <!--  <script>-->
 <!--    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;-->
 <!--    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')-->
