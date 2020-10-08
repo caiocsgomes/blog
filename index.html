@@ -1,82 +1,84 @@
 <!doctype html>
-<html class="no-js antialiased leading-normal" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" class="antialiased leading-normal no-js" lang="en">
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
     <title>Caio Gomes</title>
     <meta name="description" content="Caio Gomes Personal Webpage">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta >
     <link rel="icon" href="img/web-programming.svg">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/build/tailwind.css">
 </head>
 
-<body class="min-h-screen text-yellow-100 bg-gray-900 font-ubuntu">
+<body class="min-h-screen font-ubuntu">
 
 <!--TODO: Make main page layout Done -->
-<!--TODO: Make post layout Done -->
-<!--TODO: Organize classes -->
-<!--TODO: Verify text size to a better rem-->
-<!--TODO: Review Classes -->
-<!--TODO: Implement dark mode -->
+<!--TODO: Make post layout Done  -->
+<!--TODO: Organize classes Done -->
+<!--TODO: Verify text size to a better rem Done-->
+<!--TODO: Review Classes Done -->
+<!--TODO: Implement dark mode Done -->
 <!--TODO: Create one post  -->
 <!--TODO: Deploy to S3 -->
 <!--TODO: Implement CI/CD using github and S3 -->
-<div class="font-bold text-4xl text-center bg-gray-700">Site under construction</div>
-<div class="container mx-auto gap-1 mt-10 grid grid-rows-1 md:grid-cols-main">
+<div class="text-4xl font-bold text-center">Site under construction</div>
+<div class="container grid grid-rows-1 gap-1 mx-auto mt-10 md:grid-cols-main">
     <aside>
-        <div class="flex md:block md:py-4 h-full">
-            <div class="flex-1 hover:bg-gray-800 rounded py-2">
-                <img src="img/013-twitter-1.svg" class="w-5 mx-3"  align="left" alt="Twitter logo">
+        <div class="flex justify-evenly md:block md:py-4">
+            <div class="py-2 rounded socialmedia-link">
+                <img src="img/twitter.png" class="float-left w-5 mx-3" alt="Twitter logo">
                 <a href="https://twitter.com/caiocsgomes" target="_blank" class="font-bold visited:none">Twitter</a>
             </div>
-            <div class="flex-1 pr-3 hover:bg-gray-800 rounded py-2">
-                <img src="img/039-github.svg" class="w-5 mx-3"  align="left" alt="Github logo">
+            <div class="py-2 pr-3 rounded socialmedia-link">
+                <img src="img/039-github.svg" class="float-left w-5 mx-3" alt="Github logo">
                 <a href="https://github.com/caiocsgomes" target="_blank" class="font-bold visited:none">Github</a>
             </div>
-            <div class="flex-1 pr-3 hover:bg-gray-800 rounded py-2">
-                <img src="img/031-linkedin.svg" class="align-text-bottom w-5 mx-3"  align="left" alt="Linkedin logo">
-                <a href="https://www.linkedin.com/in/caiocsgomes" target="_blank" class="align-text-bottom font-bold visited:none py-0">Linkedin</a>
+            <div class="py-2 pr-3 rounded socialmedia-link">
+                <img src="img/linkedin.png" class="float-left w-5 mx-3" alt="Linkedin logo">
+                <a href="https://www.linkedin.com/in/caiocsgomes" target="_blank" class="font-bold visited:none">Linkedin</a>
             </div>
         </div>
     </aside>
 
-    <main>
-        <div class="px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
-             onclick="window.location.pathname='posts/first-post.html'">
-            <div class="flex justify-between items-center">
-                <span class="font-light text-gray-100">oct 4, 2020</span>
-                <a class="px-2 py-1 bg-gray-600 text-gray-100 font-bold" href="#">Design</a>
+    <main class="px-4">
+        <div class="px-4 py-4 rounded-lg cursor-pointer post-link"
+             onclick="window.location.href='posts/first-post/'">
+            <div class="flex items-center justify-between hover:">
+                <span class="font-light">oct 4, 2020</span>
+                <a class="px-2 py-1 font-bold bg-gray-600 text-white" href="#">Design</a>
             </div>
             <div class="mt-2">
-                <a class="text-2xl text-gray-100 font-bold">This is the first post</a>
-                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                <a class="text-2xl font-bold">This is the first post</a>
+                <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
                     dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
                     delectus nihil quis facere in modi ratione libero!</p>
             </div>
         </div>
-        <div class="px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
-             onclick="window.location.pathname='posts/second-post.html'">
-            <div class="flex justify-between items-center">
-                <span class="font-light text-gray-100">oct 4, 2020</span>
-                <a class="px-2 py-1 bg-yellow-600 text-gray-100 font-bold" href="#">Python</a>
+        <div class="px-4 py-4 rounded-lg cursor-pointer post-link"
+             onclick="window.location.pathname='posts/second-post/'">
+            <div class="flex items-center justify-between">
+                <span class="font-light">oct 4, 2020</span>
+                <a class="px-2 py-1 font-bold bg-yellow-600 text-black" href="#">Python</a>
             </div>
             <div class="mt-2">
-                <a class="text-2xl text-gray-100 font-bold">This is the second post</a>
-                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                <a class="text-2xl font-bold">This is the second post</a>
+                <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
                     dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
                     delectus nihil quis facere in modi ratione libero!</p>
             </div>
         </div>
-        <div class="px-10 rounded-lg hover:bg-gray-800 cursor-pointer py-4"
-             onclick="window.location.pathname='posts/third-post.html'">
-            <div class="flex justify-between items-center">
-                <span class="font-light text-gray-100">oct 4, 2020</span>
-                <a class="px-2 py-1 bg-purple-900 text-gray-100 font-bold" href="#">Linux</a>
+        <div class="px-4 py-4 rounded-lg cursor-pointer post-link"
+             onclick="window.location.pathname='posts/third-post/'">
+            <div class="flex items-center justify-between">
+                <span class="font-light">oct 4, 2020</span>
+                <a class="px-2 py-1 font-bold bg-purple-900 text-white" href="#">Linux</a>
             </div>
             <div class="mt-2">
-                <a class="text-2xl text-gray-100 font-bold">This is the third post</a>
-                <p class="mt-2 text-gray-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
+                <a class="text-2xl font-bold">This is the third post</a>
+                <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
                     dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus
                     delectus nihil quis facere in modi ratione libero!</p>
             </div>

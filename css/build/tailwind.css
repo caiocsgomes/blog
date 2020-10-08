@@ -21178,6 +21178,14 @@ video {
           animation: bounce 1s infinite;
 }
 
+.trial {
+  background-color: yellow;
+}
+
+.hover\:trial:hover {
+  background-color: yellow;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

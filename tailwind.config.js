@@ -10,6 +10,9 @@ module.exports = {
     },
     gridTemplateColumns: {
       'main': '200px auto'
+    },
+    hover: {
+      'main': {'background-color': 'var(-- )'}
     }
   },
   variants: {},
