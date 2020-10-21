@@ -23,7 +23,7 @@
         <p>One of the major concepts that people miss when studying docker are processes. While a lot of people try to
             understand the difference between a container and a VM, a much more
             interesting question is what is the difference between a container and a process. To understand that first
-            you need to understand what a process is, and that's what we are going to
+            you need to understand what a process is, and that's what we are going to do
             in this post.</p>
         <p class="my-4">Think about a regular day using a computer. You probably open several programs and just and just
             forget about what the computer is doing. What the computer is doing under the
@@ -79,9 +79,17 @@
         </table>
         <p class="my-4">The <span class="italic">PID</span> is the process ID, the <span class="italic">PPID</span> is the parent process
             ID and the <span class="italic">Command</span> is the command that launched the process. If rou run the first command on Linux it will open Firefox and
-            as you can see this process started several other process as its ID (7285) is the parent ID from the other processes. Now that we know how a process starts
-            we have to understand what it does and what problem is it trying to solve.
+            as you can see this process started several other process as its ID (7285) is the parent ID from the other processes. The parent process creates a child process
+            by making an exact copy of itself in memory. After making this copy the child has the same environment as its parent and can change itself.
+            Now that we know how a process starts we have to understand what problem is it trying to solve.
         </p>
+        <p class="my-4">Coming back at a regular usage for a computer. Even though you start several programs in a given day, you have just one CPU, and it is
+        capable of executing one task at a time. So the kernel manages what process is being executed at a given time and puts the other ones on hold. But if
+        a given process is kept on hold, how does the kernel knows where it left off when comes back to it? A process is not only a CPU execution, it also has
+        its own space memory associated. So this is the problem processes are trying to solve: handle several tasks with limited resources by creating executing units
+        and giving these executing units the resources needed.</p>
+
+
     </div>
 </div>
 </body>
