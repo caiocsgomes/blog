@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Linux: processes</title>
+    <meta name="description" content="Caio Gomes Personal Webpage">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../img/web-programming.svg">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/build/tailwind.css">
+</head>
+<body class="font-ubuntu mt-10 container mx-auto px-10">
+<div>
+    <h1 class="font-bold text-6xl">Linux: processes</h1>
+    <p class="my-4">An introduction to how processes work in Linux and their role on Docker</p>
+
+    <p class="text-xl font-thin">oct 4, 2020</p>
+    <hr class="line-through my-2">
+</div>
+<div>
+    <div class="mt-10">
+        <p>One of the major concepts that people miss when studying docker are processes. While a lot of people try to
+            understand the difference between a container and a VM, a much more
+            interesting question is what is the difference between a container and a process. To understand that first
+            you need to understand what a process is, and that's what we are going to
+            in this post.</p>
+        <p class="my-4">Think about a regular day using a computer. You probably open several programs and just and just
+            forget about what the computer is doing. What the computer is doing under the
+            hoods is starting a new process for each program you start. That program itself can start other processes. Lets think
+            about a browser, when you click on the firefox icon it sends a system
+            call to the linux kernel that will initiate the chrome program. The command will start a new process and
+            this is why the the usual definition of a process is <span class="italic">a program in execution</span>.
+            This firefox process can or cannot start new processes that can initiate new processes by themselves, forming
+            a tree of processes. Lets see how this works in a practical manner on the
+            shell.</p>
+        <img src="../../img/linux-processes/firefox-process.png" alt="firefox process"
+             class="rounded my-4 m-auto shadow-2xl">
+
+        <p class="my-6">Formatting the data to a human readable table we have the following:</p>
+
+        <table class="table-auto m-auto rounded my-6">
+            <thead>
+            <tr class="reverse-color-bg reverse-color-text">
+                <th class="border px-4 py-2">PID</th>
+                <th class="border px-4 py-2">PPID</th>
+                <th class="border px-4 py-2">Command</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th class="border px-4 py-2">7285</th>
+                <th class="border px-4 py-2">1805</th>
+                <th class="border px-4 py-2">usr/lib/firefox/firefox -new-window</th>
+            </tr>
+            <tr>
+                <th class="border px-4 py-2">7352</th>
+                <th class="border px-4 py-2">7285</th>
+                <th class="border px-4 py-2">/usr/lib/firefox/firefox -contentproc -childID 1...</th>
+            </tr>
+            <tr>
+                <th class="border px-4 py-2">7387</th>
+                <th class="border px-4 py-2">7285</th>
+                <th class="border px-4 py-2">/usr/lib/firefox/firefox -contentproc -childID 2...</th>
+            </tr>
+            <tr>
+                <th class="border px-4 py-2">7415</th>
+                <th class="border px-4 py-2">7285</th>
+                <th class="border px-4 py-2">/usr/lib/firefox/firefox -contentproc -childID 3...</tr>
+            </th>
+            <tr>
+                <th class="border px-4 py-2">7478</th>
+                <th class="border px-4 py-2">7285</th>
+                <th class="border px-4 py-2">/usr/lib/firefox/firefox -contentproc -childID 4...</th>
+            </tr>
+            </tbody>
+            <tbody>
+            </tbody>
+        </table>
+        <p class="my-4">The <span class="italic">PID</span> is the process ID, the <span class="italic">PPID</span> is the parent process
+            ID and the <span class="italic">Command</span> is the command that launched the process. If rou run the first command on Linux it will open Firefox and
+            as you can see this process started several other process as its ID (7285) is the parent ID from the other processes. Now that we know how a process starts
+            we have to understand what it does and what problem is it trying to solve.
+        </p>
+    </div>
+</div>
+</body>
+</html>

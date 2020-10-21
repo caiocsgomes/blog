@@ -1,23 +1,25 @@
 :root {
-    --main-bg: #fefefe;
+    --light-bg: #fefefe;
     --dark-bg: #1a202c;
-    --main-color: #424242;
-    --dark-color: #f7fafc;
-    --main-hover-color: #e2e8f0;
+    --dark-text-color: #424242;
+    --light-text-color: #f7fafc;
+    --light-hover-color: #e2e8f0;
     --dark-hover-color: #2d3748;
 }
 
 @media (prefers-color-scheme: light) {
-    body { background-color: var(--main-bg); color:  var(--main-color)}
-    .reverse-color { color: var(--dark-color) }
-    .hover-color { background-color: var(--main-hover-color) }
-    .post-link:hover { background-color: var(--main-hover-color)}
-    .socialmedia-link:hover { background-color: var(--main-hover-color)}
+    body { background-color: var(--light-bg); color:  var(--dark-text-color)}
+    .reverse-color-text { color: var(--light-text-color) }
+    .reverse-color-bg { background-color: var(--dark-bg)}
+    .hover-color { background-color: var(--light-hover-color) }
+    .post-link:hover { background-color: var(--light-hover-color)}
+    .socialmedia-link:hover { background-color: var(--light-hover-color)}
 }
 
 @media (prefers-color-scheme: dark) {
-    body { background-color: var(--dark-bg); color: var(--dark-color)}
-    .reverse-color { color: var(--main-color) }
+    body { background-color: var(--dark-bg); color: var(--light-text-color)}
+    .reverse-color-text { color: var(--dark-text-color) }
+    .reverse-color-bg { background-color: var(--light-bg)}
     .hover-color { background-color: var(--dark-hover-color) }
     .post-link:hover { background-color: var(--dark-hover-color) }
     .socialmedia-link:hover { background-color: var(--dark-hover-color) }
