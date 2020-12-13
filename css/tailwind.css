@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .fab {
+        font-size: 3rem;
+        color: #ffffff;
+    }
+    .bg-real-gray-900 {
+        background-color: #383838;
+    }
+    .bg-real-gray-700 {
+        background-color: #2f3437;
+    }
+    .real-gray-700 {
+        color: #2f3437;
+    }
+    .font-ubuntu {
+        font-family: Ubuntu
+    }
+  }
