@@ -31188,6 +31188,39 @@ video {
   font-family: Ubuntu
 }
 
+.code-text-dark-blue {
+  color: #42a5f5
+}
+
+.code-text-light-blue {
+  color: #00acc1
+}
+
+.code-text-light-green {
+  color: #4caf50
+}
+
+.code-text-comment {
+  --tw-text-opacity: 1;
+  color: rgba(55, 65, 81, var(--tw-text-opacity));
+  font-style: italic;
+}
+
+.code {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+  border-radius: 0.5rem;
+  margin: auto;
+  margin-top: 1.25rem;
+  padding: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .code {
+    width: 50%;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

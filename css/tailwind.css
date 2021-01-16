@@ -19,4 +19,20 @@
     .font-ubuntu {
         font-family: Ubuntu
     }
+    .code-text-dark-blue {
+        color: #42a5f5
+    }
+    .code-text-light-blue {
+        color: #00acc1
+    }
+    .code-text-light-green {
+        color: #4caf50
+    }
+    .code-text-comment {
+        @apply text-gray-700 italic;
+    }
+    .code {
+        @apply bg-black mt-5 rounded-lg lg:w-6/12 p-2 m-auto;
+    }
+
   }

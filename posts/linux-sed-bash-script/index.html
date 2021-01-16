@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Using a bash script with sed to clean data</title>
+    <meta name="description" content="Using a bash script with sed to clean data">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/img/web-programming.svg">
+    <link rel="stylesheet" type="text/css" href="/public/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+    <div>
+        <h1 class="font-bold text-6xl">Using a bash script with sed to clean data</h1>
+        <p class="my-4">A post explaining the basics of sed to clean flat files before importing them to a database</p>
+
+        <p class="text-xl font-thin">Wed 14th Jan, 2021</p>
+        <hr class="line-through my-2">
+    </div>
+    <div class="mt-10 mb-20 text-justify">
+        <p>
+            After creating a database the first things you will do with it are creating the schema (tables, relationships, indexes, etc) and importing data.
+            One of the options for importing data is to import it from a flat file like txt, csv, tsv, etc. I'm developing an API now and when I imported data
+            from a tsv (tab separated values) file Postgresql started to give errors like this in several lines:
+        </p>
+
+        <p class="text-center mt-5">
+            <code>128190:23: actual: ": A Short Film", expected: value separator (\t)</code>
+        </p>
+
+        <p class="mt-5">
+            Inspecting the lines from the tsv file with grep they all had the same pattern:
+        </p>
+
+        <p class="text-center mt-5">
+            <code>tt0294236	short	'Arry and Arriet's Evening Out	'Arry and 'Arriet's Evening Out	0	1909	Comedy</code>
+        </p>
+
+        <p class="mt-5">
+            All the lines that had a word starting with single quotes, like <span class="italic">'Arry and Arriet's Evening Out</span>, or double quotes
+            were showing errors, as the importer was trying to find a tab and mistakingly assuming the quotes were the separation between values and not the tab. So,
+            in order to import the data I had to clean it before, removing single quotes from the start of values, which has no value for the API, and
+            all double quotes, since the values are already strings they have no value as well. To clean it I've used
+            <span class="italic">Sed</span>.
+        </p>
+        <p class="mt-5">
+            Sed is a stream editor in bash, what it means is it can perform editing operations on text coming from standard input or a file, like insertion, deleting,
+            find and replacing, etc, so it's really useful to clean data from files. The use case here is to find the data I don't want and replace it.
+        </p>
+        <p class="mt-5">
+            Let's work with two real case here, the lines are these ones:
+        </p>
+        <p class="text-center mt-5">
+            <code>tt0294236	short	'Arry and Arriet's Evening Out	'Arry and 'Arriet's Evening Out	0	1909	Comedy</code>
+        </p>
+        <p class="text-center mt-5">
+            <code>tt9913170	tvEpisode	"American Gods"	"American Gods"	0	2019	Talk-Show</code>
+        </p>
+        <p class="mt-5">
+            On the first one we will have to remove the single quote from the value's start and on the second we will have to remove all the double quotes.
+            The result has to be this:
+        </p>
+        <p class="text-center mt-5">
+            <code>tt0294236	short	Arry and Arriet's Evening Out	Arry and 'Arriet's Evening Out	0	1909	Comedy</code>
+        </p>
+        <p class="text-center mt-5">
+            <code>tt9913170 tvEpisode	American Gods     American Gods	0	2019	Talk-Show</code>
+        </p>
+        <p class="mt-5">
+            Sed uses regular expressions to find the data we want to replace, a simple table showing some of the patters would be this:
+        </p>
+        <table class="table-auto m-auto rounded my-6">
+            <thead>
+                <tr class="reverse-color-bg reverse-color-text">
+                    <th class="border px-4 py-2">Pattern</th>
+                    <th class="border px-4 py-2">Use case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="border px-4 py-2">.</th>
+                    <th class="border px-4 py-2">Matches any character, including newline.</th>
+                </tr>
+                <tr>
+                    <th class="border px-4 py-2">^</th>
+                    <th class="border px-4 py-2">Matches the null string at beginning of the pattern space, i.e. what appears after the circumflex must appear at the beginning of the pattern space.</th>
+                </tr>
+                <tr>
+                    <th class="border px-4 py-2">$</th>
+                    <th class="border px-4 py-2">It is the same as ^, but refers to end of pattern space. </th>
+                </tr>
+                <tr>
+                    <th class="border px-4 py-2">\</th>
+                    <th class="border px-4 py-2">Used to escape (use) invalid characters in strings.</th>
+                </tr>
+                </th>
+            </tbody>
+            <tbody>
+            </tbody>
+        </table>
+        <p class="mt-5">
+            With these pattern you can do a lot of different stuff. We wil start from the basics here and do a simple find and replace.
+            You need to save both lines with the quotes from above in a file, it can be called with-quotes.txt.
+        </p>
+        <p class="mt-5">
+            One example of how Sed works for replacement would be this:
+        </p>
+        <p class="mt-5 code">
+            <code>sed -i 's/"what I want to replace"/"what I will use for as replacement"/g' file.txt</code>
+        </p>
+        <p class="mt-5">
+            Explaining each part, we have <span class="italic">sed</span> which is the command we are using,
+            <span class="italic">-i</span> means I'll do the work on the current file (inline) and not produce the results on another file,
+            <span class="italic">s/</span> for substitution,
+            <span class="italic">"what I want to replace"</span> is the pattern of what I want to remove,
+            <span class="italic">""what I will use for as replacement"</span>, is what I'll use for substitution at the places I have removed the characters,
+            <span class="italic">/g</span> is for global, so I'll do the substitution on
+            all the cases and not just the first in each line and
+            <span class="italic">file.txt</span> is the file we will do the work on.
+        </p>
+        <p class="mt-5">
+            So, translating for double quotes removal, which is one of the patterns we want, we have this:
+        </p>
+        <p class="mt-5 code">
+            <code>sed -i 's/"//g' with-quotes.txt</code>
+        </p>
+        <p class="mt-5">
+            Following the explanation I gave before, this will replace double quotes with nothing, so we are halfway to our goal, which is removing double
+            quotes and single quotes at the start of values, and the with-quotes.txt should be like this:
+        </p>
+        <p class="text-center mt-5">
+            <code>tt0294236	short	'Arry and Arriet's Evening Out	'Arry and 'Arriet's Evening Out	0	1909	Comedy</code>
+        </p>
+        <p class="text-center mt-5">
+            <code>tt9913170	tvEpisode	American Gods	American Gods	0	2019	Talk-Show</code>
+        </p>
+        <p class="mt-5">
+            Now we have to remove the single at the start of values. As the values are separated by tabs, all the starting values are preceded by tabs,
+            in which case all starting single quotes will have the following pattern: <span class="italic">\t'</span>. The <span class="italic">\t</span>
+            means the tab. We will replace this pattern with a tab only, and then we will have only the tab remaining and the single quote will disappear.
+            For this case we should use this command:
+        </p>
+        <p class="mt-5 code">
+            <code>sed -i "s/\t'/\t/g" with-quotes.txt</code>
+        </p>
+        <p class="mt-5">
+            And then we have clean data:
+        </p>
+        <p class="text-center mt-5">
+            <code>tt0294236	short	Arry and Arriet's Evening Out	Arry and 'Arriet's Evening Out	0	1909	Comedy</code>
+        </p>
+        <p class="text-center mt-5">
+            <code>tt9913170	tvEpisode	American Gods	American Gods	0	2019	Talk-Show</code>
+        </p>
+        <p class="mt-5">
+            As I have several files that have to be cleaned, it makes sense to have a bash script that does the job instead of running these command in each file.
+            The bash script that will do the job is this one:
+        </p>
+        <p class="">
+
+        </p>
+        <div class="code">
+            <p><span class="code-text-comment">#!/bin/bash</span></p>
+            <p> echo "Type the file name in the current directory you want to clean"</p>
+            <p>read filename</p>
+            <br>
+            <p>echo"Cleaning double quotes"</p>
+            <p>command_out=$(sed -i -e 's/"//g' ./$filename)</p>
+            <p>echo $command_out</p>
+            <br>
+            <p>echo "Cleaning phrases starting with single quotes"</p>
+            <p> command_out=$(sed -i -e "s/\t'/\t/g" ./$filename)</p>
+            <p>echo $command_out</p>
+            <br>
+            <p>echo "Done!"</p>
+        </div>
+        <p class="mt-5">
+            And then we can run these sed command or eventually other commands we have to use to clean the data in one step.
+        </p>
+    </div>
+</body>
+
+</html>
