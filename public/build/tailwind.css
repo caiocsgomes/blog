@@ -31221,6 +31221,10 @@ video {
   }
 }
 
+.bg-orange-500 {
+  background-color: #ff9900
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
