@@ -1,3 +1,26 @@
-.code {
-    @apply bg-black mt-5 rounded-lg lg:w-6/12 p-5 m-auto;
+:root {
+    --light-bg: #fefefe;
+    --dark-bg: #1a202c;
+    --dark-text-color: #424242;
+    --light-text-color: #f7fafc;
+    --light-hover-color: #e2e8f0;
+    --dark-hover-color: #2d3748;
+}
+
+@media (prefers-color-scheme: light) {
+    body { background-color: var(--light-bg); color:  var(--dark-text-color)}
+    .reverse-color-text { color: var(--light-text-color) }
+    .reverse-color-bg { background-color: var(--dark-bg)}
+    .hover-color { background-color: var(--light-hover-color) }
+    .post-link:hover { background-color: var(--light-hover-color)}
+    .socialmedia-link:hover { background-color: var(--light-hover-color)}
+}
+
+@media (prefers-color-scheme: dark) {
+    body { background-color: var(--dark-bg); color: var(--light-text-color)}
+    .reverse-color-text { color: var(--dark-text-color) }
+    .reverse-color-bg { background-color: var(--light-bg)}
+    .hover-color { background-color: var(--dark-hover-color) }
+    .post-link:hover { background-color: var(--dark-hover-color) }
+    .socialmedia-link:hover { background-color: var(--dark-hover-color) }
 }

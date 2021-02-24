@@ -1,11 +1,20 @@
 module.exports = {
+  future: {
+    // removeDeprecatedGapUtilities: true,
+    // purgeLayersByDefault: true,
+  },
   purge: [],
-  darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    fontFamily: {
+      'ubuntu': ['ubuntu', 'sans-serif']
+    },
+    gridTemplateColumns: {
+      'main': '200px auto'
+    },
+    hover: {
+      'main': {'background-color': 'var(-- )'}
+    }
   },
-  variants: {
-    extend: {},
-  },
+  variants: {},
   plugins: [],
 }

@@ -1,21 +1,29 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "caiogomes.me",
+  "description": "personal blog",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "postcss css/tailwind.css -o public/build/tailwind.css"
+    "build": "postcss css/tailwind.css -o css/build/tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caiocsgomes/blog.git"
   },
   "keywords": [
-    "blog"
+    "blog",
+    "personal"
   ],
   "author": "Caio Gomes",
-  "license": "MIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caiocsgomes/blog/issues"
+  },
+  "homepage": "https://github.com/caiocsgomes/blog#readme",
   "dependencies": {
-    "autoprefixer": "^10.1.0",
-    "postcss": "^8.2.1",
-    "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.0.2"
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8.1.1",
+    "postcss-cli": "^8.0.0",
+    "tailwindcss": "^1.8.10"
   }
 }
