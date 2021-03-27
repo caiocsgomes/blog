@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SAM for an ETL job</title>
+    <meta name="description" content="Caio Gomes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/img/web-programming.svg">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+    <div>
+        <h1 class="font-bold text-6xl">SAM (Cloudformation) template for a serverless ETL job</h1>
+        <p class="my-4">
+            On this post I'll explain how SAM can be used to model the resources needed for an ETL job that converts a csv file in a S3 bucket into a dynamodb
+            table using lambda
+        </p>
+
+        <p class="text-xl font-thin">March 27, 2021</p>
+        <hr class="line-through my-2">
+    </div>
+    <div class="mt-10 mb-20 text-justify">
+        <p>
+            Recently I had to convert a csv into a dynamodb table and my first thought was having a S3 bucket that would trigger an event for a lambda function when
+            a file was uploaded to it. The lambda function would extract the csv data and load it into a dynamodb table. As this is a common scenario I decided
+            to use IAAS with cloudformation, this way I would have a file that would create all the resources with all the configurations needed if I encountered
+            the problem again.
+        </p>
+        <p class="my-6">
+            When I was almost finishing the cloudformation template I realized that I had to place the lambda code on the template as well, since the code section
+            for the cloudformation <a class="italic underline" target="_blank" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html">
+            lambda resource</a> is required.
+        </p>
+        <img src="/posts/sam-etl-serverless/img/cloudformation-lambda-code-section.png" alt="code section lambda cloudformation" class="rounded my-4 m-auto shadow-2xl">
+        <p class="my-6">
+            So if I used cloudformation I would have infrastructure code and application code on the same file. Boy, this is a mess. I don't get why the section
+            cannot point to a git repository link. So I stopped at this point and looked for another solution, then I found aws
+            <a target="_blank" class="underline italic" href="https://aws.amazon.com/serverless/sam/">SAM</a> (serverless application model).
+        </p>
+        <p class="my-6">
+            SAM is a framework to build serverless applications. Using SAM I could split my infrastructure template from my lambda template and one of the coolest
+            things is SAM is an extension of cloudformation, so if you as me is used to building cloudformation templates, you kind of already know SAM. The only things
+            you have to learn is its CLI, used to manage the project and its structure. Another nice feature is testing the lambda function locally with the SAM CLI.
+        </p>
+        <img src="/posts/sam-etl-serverless/img/sam-structure.png" alt="sam file structure" class="rounded my-4 m-auto shadow-2xl">
+        <p class="my-6">
+            For the structure you have the <span class="italic">env.json</span> that has the environment variables, the event files in the <span class="italic">events</span>
+            folder, that contains the events to test your lambda function locally, the <span class="italic">app.py</span> for you application code and the
+            <span class="italic">template.yml</span> that contains the infrastructure code. The source code with instructions is available on my
+            <a class="italic underline" target="_blank" href="https://github.com/caiocsgomes/lambda-etl-csv-s3-dynamo">github page</a>
+        </p>
+        <img src="/posts/sam-etl-serverless/img/cloudformation-designer.png" alt="cloudformation designer" class="rounded my-4 m-auto shadow-2xl">
+        <p class="my-6">
+            The image is provided by the cloudformation designer with the <span class="italic">template.yml</span> code. By the image we see that S3 invokes the
+            lambda function that inserts data on the dynamodb table. But besides that we see two other components, the <span class="italic">lambda permition</span>
+            and the <span class="italic">lambda role</span>. We need the lambda permission to designate who can invoke the lambda function. So in the lambda permission
+            we allow the S3 bucket to invoke lambda function. Furthermore we need a role to allow the lambda function to insert data on the dynamo table. So we create
+            a policy, that is a document describing what an identity can do, associate the policy to the role and associate the role to the lambda function.
+        </p>
+    </body>
+</html>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caio Gomes</title>
     <link rel="icon" href="img/web-programming.svg">
-    <link rel="stylesheet" href="/public/build/tailwind.css">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://kit.fontawesome.com/05d79859ad.js" crossorigin="anonymous"></script>
 </head>
@@ -26,11 +26,31 @@
         <div class="max-w-5xl container m-auto p-4 text-xl md:text-4xl">
             <p>
                 Hi there! I'm Caio, a software engineer from Brazil and this is my personal blog. I usually talk about
-                linux, aws and golang.
+                linux, aws and python.
             </p>
         </div>
-        <hr class="max-w-5xl container m-auto p-4">
+        <hr class="max-w-5xl container m-auto p-2">
         <div class="m-auto container mt-8 max-w-5xl">
+            <div class="my-2 p-4">
+                <div class="flex justify-between">
+                    <a class="text-2xl font-bold no-underline sm:text-4xl hover:underline" href="/posts/sam-etl-serverless/">SAM (Cloudformation) template for a serverless ETL job</a>
+                    <div class="h-10 flex items-center">
+                        <span class="px-2 py-1 font-bold bg-orange-500 text-xl md:text-3xl">AWS</span>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="flex flex-row items-center space-x-2 my-2">
+                        <span class="font-bold">Wed 27th Mar, 2021</span>
+                    </div>
+                </div>
+                <div class="w-full font-light leading-normal text-xl md:text-3xl">
+                    <p>
+                    On this post I'll explain how SAM can be used to model the resources needed for an ETL job that converts a csv file in a S3 bucket into a dynamodb
+                    table using lambda
+                    </p>
+                </div>
+            </div>
+            <!--Sed to clean data-->
             <div class="my-2 p-4">
                 <div class="flex justify-between">
                     <a class="text-2xl font-bold no-underline sm:text-4xl hover:underline" href="/posts/linux-sed-bash-script/">Using a bash script with sed to clean data</a>
@@ -69,3 +89,4 @@
 </body>
 
 </html>
+
