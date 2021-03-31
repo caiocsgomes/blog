@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Writing more pythonic code</title>
+    <meta name="description" content="Writing more pythonic code">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../img/web-programming.svg">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css">
+</head>
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+<div>
+    <h1 class="font-bold text-6xl">Writing more pythonic code</h1>
+    <p class="my-4">Tips about writing cleaner code in python using its resources for a more pythonic approach</p>
+
+    <p class="text-xl font-thin">April 2, 2021</p>
+    <hr class="line-through my-2">
+</div>
+<div class="mt-10 mb-20 text-justify">
+    <p>
+        If you like me started programming with a c-style language, like c, c++, c#, java, etc, you probably have a way to handle problems in
+        code that resemble these languages. While this is not a problem, one of the best strengths of python is its readability and simplicity.
+        Python provide several instruments, like using <span class="italic">range</span> function to iterate over for loops, list comprehension
+        to generate lists instead of the traditional for loop approach, lambda functions, f-strings to improve string formatting, etc, to improve
+        readability and make code clearer.
+        So, what do I mean by pythonic code? From <a target="_black" class="underline" href="https://stackoverflow.com/questions/25011078/what-does-pythonic-mean#:~:text=Loading%20when%20this%20answer%20was,is%20intended%20to%20be%20used.">
+        stackoverflow</a>:
+    </p>
+    <blockquote class="mt-6 p-6 bg-black rounded shadow-xl">
+        <p>
+            "Exploiting the features of the Python language to produce code that is clear, concise and maintainable.
+        </p>
+        <p class="mt-2">
+            Pythonic means code that doesn't just get the syntax right but that follows the conventions of the Python community and uses the language in the way it is intended to be used."
+        </p>
+    </blockquote>
+    <p class="mt-6">
+        So in this post I'll describe a series of python features and idioms that make code, elegant and more readable. As I'm always studying python
+        and always learning something new while coding, this will be an ever changing list.
+    </p>
+    <div class="mt-6">
+        <h2 class="font-bold text-2xl">1. Lists comprehension</h2>
+        <p class="my-6">
+            Python offer several ways of creating lists. The most obvious way of creating them, if you already code in another language, is
+            creating an empty list and appending the values you want in it. Usually for this you do some loop and in each iteration you append
+            data to the list. Python has a more readable way to do this and it's called list comprehension.
+        </p>
+        <p class="my-6">
+            Let's say you have a dictionary, with people and their number.
+        </p>
+        <pre>
+            <code class="language-python">
+    people_list = [
+        {
+            'name': 'caio',
+            'phone': '9908-9908'
+        },
+        {
+            'name': 'thais',
+            'phone': '9909-9909'
+        },
+        {
+            'name': 'john',
+            'phone': '9910-9910'
+        },
+        {
+            'name': 'jane',
+            'phone': '9911-9911'
+        }
+    ]
+            </code>
+        </pre>
+        <p class="my-6">
+            Let's say you want only their numbers in a list so you can do an automation to call them. What's the first thought? Well, we can create an empty
+            list, iterate over the values and in each iteration we add the number.
+        </p>
+        <pre>
+            <code class="language-python">
+    phone_list = []
+
+    for people in people_list:
+        phone_list.append(people['phone'])
+    # print(phone_list) -> ['9908-9908', '9909-9909', '9910-9910']
+            </code>
+        </pre>
+        <p class="my-6">
+            The pythonic way to solve this would be list comprehension that takes the following form.
+        </p>
+        <pre>
+            <code class="language-python">
+    new_list = [expression for item in list]
+            </code>
+        </pre>
+        <p class="my-6">
+            The expression can be any function or statement that will be applied in each item. For the example above we would have:
+        </p>
+        <pre>
+            <code class="language-python">
+    phone_list = [people['phone'] for people in people_list]
+    # print(phone_list) -> ['9908-9908', '9909-9909', '9910-9910']
+            </code>
+        </pre>
+    </div>
+
+    <div class="mt-6">
+        <h2 class="font-bold text-2xl">2. Swap variables</h2>
+        <p class="my-6">
+            When you swapping two variables.
+        </p>
+        <pre>
+            <code class="language-python">
+    name1 = 'caio'
+    name2 = 'thais'
+            </code>
+        </pre>
+        <p class="my-6">
+            Instead of this:
+        </p>
+        <pre>
+            <code class="language-python">
+    temp_var = name1
+    name1 = name2
+    name2 = temp_var
+
+    # print(name1, name2) -> thais caio
+            </code>
+        </pre>
+        <p class="my-6">
+            Do this:
+        </p>
+        <pre>
+            <code class="language-python">
+    name1, name2 = name2, name1
+
+    # print(name1, name2) -> thais caio
+            </code>
+        </pre>
+    </div>
+
+    <div class="mt-6">
+        <h2 class="font-bold text-2xl">3. Use f-strings to format strings</h2>
+        <p class="my-6">
+            Before python version 3.6 the common way to format strings was the <span class="italic">format()</span> method from the <span class="italic">str</span> class.
+            So let's say you had some user data and wanted to create a description phrase.
+        </p>
+        <pre>
+            <code class="language-python">
+    name = 'eric'
+    age = 34
+    city = 'são paulo'
+            </code>
+        </pre>
+        <p class="my-6">
+            You had to use the <span class="italic">format()</span> method.
+        </p>
+        <pre>
+            <code class="language-python">
+    description_prhase = "{} is {} and lives in {}".format(name, age, city)
+    # print(description_prhase) -> 'eric is 34 and lives in são paulo'
+            </code>
+        </pre>
+        <p class="my-6">
+            While the <span class="italic">format()</span> seems fine, think if you had 10 words to insert in the phrase. This would start to get messy
+            and you'd have a hard time verifying where each variable is placed. Using f-strings we would have this:
+        </p>
+        <pre>
+            <code class="language-python">
+    description_phrase = f'{name} is {age} and lives in {city}'
+    # print(description_prhase) -> 'eric is 34 and lives in são paulo'
+            </code>
+        </pre>
+        <p class="my-6">
+            That's more organized and we don't have to search where each word is inserted, because they are already in-place. Another cool thing is
+            f-strings are evaluated at runtime. This means we can use expressions and functions as well inside strings.
+        </p>
+        <pre>
+            <code class="language-python">
+    description_phrase = f'{name.upper()} is {age} and lives in {city.upper()}'
+    # print(description_prhase) -> 'ERIC is 34 and lives in SÃO PAULO'
+            </code>
+        </pre>
+    </div>
+</div>
+</div>
+<script src="/scripts/prism.js"></script>
+</body>
+</html>
+
