@@ -183,6 +183,40 @@
             </code>
         </pre>
     </div>
+
+    <div class="mt-6">
+        <h2 class="font-bold text-2xl">4. Don't use list comprehensions for its side effects</h2>
+        <p class="mt-6">List comprehensions should be used with caution, since they can make you code harder to understand and more bloated.</p>
+        <p class="mt-6">
+            There is a great book called <span class="italic">Fluent Python</span> by Luciano Ramalho that explains in details when to,
+            and when not to, use list comprehensions. In a summary, you want to use them when you are creating list, and not when you want side
+            its effects, like executing functions in a loop.
+        </p>
+        <p class="my-6">If you have a list of names</p>
+        <pre>
+            <code class="language-python">
+    names = ['caio', 'thais', 'vinicius', 'valkiria']
+            </code>
+        </pre>
+        <p class="my-6">
+            And you want to print them, this is a a bad approach:
+        </p>
+        <pre>
+            <code class="language-python">
+    [print(name) for name in name]
+            </code>
+        </pre>
+        <p class="my-6">
+            It makes your code harder to understand and list comprehensions are used to create lists. The example it's not creating
+            a list but executing a function in a for loop. The right approach would be the good and clear for loop:
+        </p>
+        <pre>
+            <code class="language-python">
+    for name in names:
+        print(name)
+            </code>
+        </pre>
+    </div>
 </div>
 </div>
 <script src="/scripts/prism.js"></script>
