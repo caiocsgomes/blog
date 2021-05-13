@@ -28,12 +28,12 @@
     .code-text-light-green {
         color: #4caf50
     }
-    .code-text-comment {
+    /* .code-text-comment {
         @apply text-gray-700 italic;
     }
     .code {
         @apply bg-black mt-5 rounded-lg lg:w-6/12 p-2 m-auto;
-    }
+    } */
     .bg-orange-500 {
         background-color: #ff9900
     }

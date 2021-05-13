@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="/img/web-programming.svg">
-    <link rel="stylesheet" type="text/css" href="/public/build/tailwind.css">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 </head>
 
 <body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
@@ -108,8 +110,13 @@
         <p class="mt-5">
             One example of how Sed works for replacement would be this:
         </p>
-        <p class="mt-5 code">
-            <code>sed -i 's/"what I want to replace"/"what I will use for as replacement"/g' file.txt</code>
+        <div class="my-4">
+            <pre>
+                <code class="language-bash">
+    sed -i 's/"what I want to replace"/"what I will use for as replacement"/g' file.txt
+                </code>
+            </pre>
+        </div>
         </p>
         <p class="mt-5">
             Explaining each part, we have <span class="italic">sed</span> which is the command we are using,
@@ -124,9 +131,13 @@
         <p class="mt-5">
             So, translating for double quotes removal, which is one of the patterns we want, we have this:
         </p>
-        <p class="mt-5 code">
-            <code>sed -i 's/"//g' with-quotes.txt</code>
-        </p>
+        <div class="my-4">
+            <pre>
+                <code class="language-bash">
+    sed -i 's/"//g' with-quotes.txt
+                </code>
+            </pre>
+        </div>
         <p class="mt-5">
             Following the explanation I gave before, this will replace double quotes with nothing, so we are halfway to our goal, which is removing double
             quotes and single quotes at the start of values, and the with-quotes.txt should be like this:
@@ -143,9 +154,13 @@
             means the tab. We will replace this pattern with a tab only, and then we will have only the tab remaining and the single quote will disappear.
             For this case we should use this command:
         </p>
-        <p class="mt-5 code">
-            <code>sed -i "s/\t'/\t/g" with-quotes.txt</code>
-        </p>
+        <div class="my-4">
+            <pre>
+                <code class="language-bash">
+    sed -i "s/\t'/\t/g" with-quotes.txt
+                </code>
+            </pre>
+        </div>
         <p class="mt-5">
             And then we have clean data:
         </p>
@@ -162,25 +177,30 @@
         <p class="">
 
         </p>
-        <div class="code">
-            <p><span class="code-text-comment">#!/bin/bash</span></p>
-            <p> echo "Type the file name in the current directory you want to clean"</p>
-            <p>read filename</p>
-            <br>
-            <p>echo"Cleaning double quotes"</p>
-            <p>command_out=$(sed -i -e 's/"//g' ./$filename)</p>
-            <p>echo $command_out</p>
-            <br>
-            <p>echo "Cleaning phrases starting with single quotes"</p>
-            <p> command_out=$(sed -i -e "s/\t'/\t/g" ./$filename)</p>
-            <p>echo $command_out</p>
-            <br>
-            <p>echo "Done!"</p>
+        <div class="my-4">
+            <pre>
+                <code class="language-bash">
+    #!/bin/bash
+    echo "Type the file name in the current directory you want to clean"
+    read filename
+
+    echo "Cleaning double quotes"
+    command_out=$(sed -i -e 's/"//g' ./$filename)
+    echo $command_out
+    
+    echo "Cleaning phrases starting with single quotes"
+    command_out=$(sed -i -e "s/\t'/\t/g" ./$filename)
+    echo $command_out
+
+    echo "Done!"
+                </code>
+            </pre>
         </div>
         <p class="mt-5">
             And then we can run these sed command or eventually other commands we have to use to clean the data in one step.
         </p>
     </div>
+    <script src="/scripts/prism.js"></script>
 </body>
 
 </html>
