@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>How to have paramaters in an external file for CloudFormation</title>
+    <meta name="description" content="Caio Gomes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../img/web-programming.svg">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+</head>
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+<div>
+    <h1 class="font-bold text-6xl">How to have paramaters in an external file for CloudFormation</h1>
+    <p class="my-4">A guide explaining how to separate parameters and template in separate files in CloudFormation</p>
+
+    <p class="text-xl font-thin">Jun 27, 2021</p>
+    <hr class="line-through my-2">
+</div>
+<div class="mt-10 mb-20 text-justify">
+    <p>
+        If you are using a reusable CloudFormation template you'll probably want to use Parameters. Parameters are variables 
+        that you can use inside the template to input values each time you create or update a stack. This way the values are not 
+        hard-coded on the template and you can reuse the template just changing the variables.
+    </p>
+    <p class="mt-6">
+        If you do not specify the parameters and upload them using the console, CloudFormation will ask each of them when creating 
+        or updating the stack and you'll input on the console. Another approach is to have a parameters file for prod and dev and pass 
+        this file when creating the stack using the AWS CLI. This page shows how to do that.
+    </p>
+    <p class="my-6">
+        The approach I take is to make a <span class="italic">parameters-dev.json</span> and a <span class="italic">parameters-prod.json</span>.
+        Then on each file I specify the parameters for each environment. The parameters would use this structure inside a json file:
+    </p>
+    <pre>
+        <code class="language-json5">
+    [
+        {
+            "ParameterKey": "BucketVersioningConfiguration",
+            "ParameterValue": "Suspended"
+        },
+        {
+            "ParameterKey": "BucketAccessControl",
+            "ParameterValue": "PublicRead"
+        }
+    ]
+        </code>
+    </pre>
+    <p class="my-4">
+        Then on the template we would first declare the parameters and then use them inside any section.
+    </p>
+    <pre>
+        <code class="language-yaml">
+Parameters:
+    BucketAccessControl:
+        Description: Bucket access control type
+        Type: String
+    BucketVersioningConfiguration:
+        Description: Bucket versioning
+        Type: String
+    
+Resources:
+    S3Bucket:
+        Type: 'AWS::S3::Bucket'
+        Properties:
+        AccessControl: !Ref BucketAccessControl
+        VersioningConfiguration:
+            Status: !Ref BucketVersioningConfiguration
+        Tags:
+            - Key: type
+            Value: example
+        </code>
+    </pre>
+    <p class="my-4">
+        To create the stack using the <span class="italic">parameters.json</span> file and the <span class="italic">template.yml</span> file with the AWS CLI,
+        we would need the following command:
+    </p>
+    <pre>
+        <code class="language-bash">
+aws cloudformation create-stack --stack-name parameters-separate-files --template-body file://template.yml --parameters file://parameters.json
+        </code>
+    </pre>
+    <p class="mt=4">
+        My repository at <a class="italic underline" href="https://github.com/caiocsgomes/cf-parameters-separate-file" target="blank">github</a> has a code example that can be cloned.
+    </p>
+</div>
+<script src="/scripts/prism.js"></script>   
+</body>
+</html>
