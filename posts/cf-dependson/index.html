@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>How to use DependsOn attribute in CloudFormation</title>
+    <meta name="description" content="Caio Gomes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../img/web-programming.svg">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+</head>
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+<div>
+    <h1 class="font-bold text-6xl">How to use DependsOn attribute in CloudFormation</h1>
+    <p class="my-4">A guide explaining how the attribute DependsOn works in CloudFormation and how to use it</p>
+
+    <p class="text-xl font-thin">Jul 22, 2021</p>
+    <hr class="line-through my-2">
+</div>
+<div class="mt-10 mb-20 text-justify">
+    <p>
+        Cloudformation is a declarative language, that means that in Cloudformation you can declare what you want and the 
+        order does not matter, it will know how to interpret what is inside the template and it will handle the right order of creation for the resources.
+    </p>
+    <p class="mt-6">
+        By default Cloudformation creates all the resources in parallel, but we have some exceptions. When using the functions !Ref or !GetAtt, the resources that 
+        are dependent on other resources are created after its dependencies. For example, let's say you are creating an elastic ip and you want to 
+        attach it to an EC2. You will have a !Ref inside the elastic ip resource pointing to the EC2 resource, in this case the elastic ip is 
+        dependent on the EC2, so Cloudformation will create first the EC2 and then the elastic ip. The same happens when you use !GetAtt.
+    </p>
+    <pre>
+        <code class="language-yaml">
+    Resources:
+        # Created first
+        MyEC2Instance: 
+            Type: AWS::EC2::Instance
+        # Created in second due to the dependency
+        MyEIP:
+            Type: AWS::EC2::EIP
+            Properties:
+                InstanceId: !Ref MyEC2Instance # Dependency
+        </code>
+    </pre>
+    <p class="mt-6">
+        The other exception is when we use the <span class="italic">DependsOn</span> attribute. This attribute explicitly specifies a dependency. 
+        When we use this attribute to a resource, that resource is created only after the creation of the resource specified in the <span class="italic">DependsOn</span> attribute.
+    </p>
+    <p class="my-6">
+        The <span class="italic">DependsOn</span> attribute is used when we need a resource created or deleted in a specific order. For example, let's say we need a RDS database
+        to be available before creating the EC2, we would use the attribute to reach this.
+    </p>
+    <pre>
+        <code class="language-yaml">
+    Resources:
+        MyEC2:
+        # Created after the MyDB
+            Type: AWS::EC2::Instance
+            DependsOn: MyDB #Dependency
+        # Created before the MyEC2
+        MyDB:
+            Type: AWS::RDS::DBInstance
+            Properties:
+            AllocatedStorage: '5'
+            DBInstanceClass: db.t2.small
+            Engine: MySQL
+            EngineVersion: '5.5'
+            MasterUsername: MyName
+            MasterUserPassword: MyPassword
+        </code>
+    </pre>
+</div>
+<script src="/scripts/prism.js"></script>   
+</body>
+</html>

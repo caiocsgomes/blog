@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>How to use SSM parameters in CloudFormation</title>
+    <meta name="description" content="Caio Gomes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../img/web-programming.svg">
+    <link rel="stylesheet" href="/css/build/tailwind.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+</head>
+<body class="mt-10 container mx-auto px-10 bg-real-gray-700 text-white font-ubuntu">
+<div>
+    <h1 class="font-bold text-6xl">How to use SSM parameters in CloudFormation</h1>
+    <p class="my-4">A guide explaining how to use Systems Manager Parameter Store parameters in CloudFormation</p>
+
+    <p class="text-xl font-thin">Jul 17, 2021</p>
+    <hr class="line-through my-2">
+</div>
+<div class="mt-10 mb-20 text-justify">
+    <p>
+        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html" class="underline italic">Parameter store</a> is a 
+        capability from AWS Systems Manager used to store configuration data and secrets in a easy way. 
+        It can be used as a good approach to separate data from code. One of the benefits from the Parameter Store is the 
+        possibility of referencing it from a CloudFormation template, so you can store your configuration data in Parameter Store 
+        and reference it as a parameter in CloudFormation.
+    </p>
+    <p class="mt-6">
+        A parameter can be created on the console on <span class="italic">Systems Manager -> Parameter Store -> Create a Parameter</span>.
+    </p>
+    <img src="/posts/cf-parameters-ssm-parameter-store/img/parameter-store-parameter-details-ssm.png" alt="SSM parameter image" class="rounded my-4 m-auto shadow-2xl">
+    <p class="my-6">
+        Any type of useful configuration data or secret can be create on the Parameter Store.
+    </p>
+    <img src="/posts/cf-parameters-ssm-parameter-store/img/parameter-store-parameters-ssm.png" alt="SSM parameter image" class="rounded my-4 m-auto shadow-2xl">
+    <p class="my-6">
+        Another useful Parameters available are the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-finding-public-parameters.html" class="italic underline">public parameters</a>. These parameters belong to AWS and can be used to find the latest image IDs for 
+        example, and for a lot of useful data on AWS resources that are contantly being updated. As image IDs for EC2s change from region to region and are 
+        updated from time to time it is not a best approach to hard-code it on the template.
+    </p>
+    <img src="/posts/cf-parameters-ssm-parameter-store/img/public-parameter-ssm.png" alt="SSM parameter image" class="rounded my-4 m-auto shadow-2xl">
+    <p class="my-6">
+        With the values available in the parameter store we can just reference them on the <span class="italic">template</span>.
+    </p>
+    <pre>
+        <code class="language-yaml">
+    Parameters:
+        MyDefaultAZ:
+            Type: AWS::SSM::Parameter::Value<String>
+            Description: Default AZ for account
+            Default: /dev/account-default-az
+        
+        MyDevInstanceType:
+            Type: AWS::SSM::Parameter::Value<String>
+            Description: Default EC2 instance type for dev
+            Default: /dev/ec2/instanceType
+        
+        MyDevImageId:
+            Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+            Description: Default Dev ImageId
+            Default: /aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-ebs
+    
+    Resources:
+        MyEC2:
+            Type: AWS::EC2::Instance
+            Properties:
+            AvailabilityZone: !Ref MyDefaultAZ
+            InstanceType: !Ref MyDevInstanceType
+            ImageId: !Ref MyDevImageId
+          
+        </code>
+    </pre>
+    <p class="mt-6">
+        One thing to notice are the SSM parameters type, AWS has a nice <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types" class="italic underline">documentation</a> 
+        explaining which types are supported.
+    </p>
+</div>
+<script src="/scripts/prism.js"></script>   
+</body>
+</html>
